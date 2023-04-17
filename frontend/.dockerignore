@@ -1,0 +1,8 @@
+node_modules
+.nuxt
+README.md
+Dockerfile
+Dockerfile.dev
+buildspec.yml
+
+.dockerignore
