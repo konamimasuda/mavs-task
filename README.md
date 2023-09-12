@@ -52,19 +52,22 @@ docker compose up --build
 http://localhost:3000
 
 このように表示できていればokです！
-![スクリーンショット 2023-04-17 14 32 45](https://user-images.githubusercontent.com/51960141/232390173-19e2dc28-d662-4abb-af3c-88917bdda4f1.png)
 
-## ログインアカウント
+<img width="1439" alt="image" src="https://github.com/mavericks-inc/mavs-task/assets/51960141/323534f0-acc1-4398-b5dc-af8616ef0e71">
+
+
+
+## ログイン機能について
 
 | メールアドレス  | パスワード |
 | --------------- | ---------- |
 | sample@test.com | password   |
 
-http://localhost:3000/signin にアクセスし、上記のメールアドレス、パスワードを入力しログインボタンクリック
+http://localhost:3000/signin にアクセスし、  
+上記のメールアドレス、パスワードを入力しログインボタンクリック  
 右上にメールアドレスが表示されていればログイン処理が正常に動作しています！
 
-
-https://user-images.githubusercontent.com/51960141/232391022-42eb0ef7-75e2-4cd0-899e-3e7ffa29bde1.mov
+https://github.com/mavericks-inc/mavs-task/assets/51960141/6c5e75da-8551-47f7-88bf-eb3e702a9405
 
 
 
