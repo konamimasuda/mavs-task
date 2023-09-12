@@ -1,8 +1,8 @@
-# Nuxt,js + Express.js のベースプロジェクトです。
+# Nuxt.js + Express.js のベースプロジェクトです。
 
 ## 環境構築方法
 
-Nodeのバージョンは16.10.0です。  
+Nodeのバージョンは18.16.0です。  
 Voltaをインストールしている場合は自動でバージョンが切り替わります。
 
 ### リポジトリのフォーク
@@ -23,14 +23,8 @@ cd mavs-task
 ```
 cd frontend
 yarn install
-touch .env
+cp .env.example .env
 ```
-
-.envファイルに以下の記述を追加し保存
-```
-API_BASE_URL=http://localhost:3001
-```
-
 
 バックエンドのパッケージインストール
 ```
@@ -40,7 +34,7 @@ yarn install
 ```
 
 ### Docker を起動（ルートディレクトリで実行）
-Docker Desktop を起動しておきます。
+Docker Desktopを起動しておきます。
 ```
 cd ../
 docker compose up --build
@@ -51,7 +45,7 @@ docker compose up --build
 
 
 
-※postgresql には初期構築時にテストデータが投入されます。
+※postgresqlには初期構築時にテストデータが投入されます。
 
 ### 動作確認
 
@@ -76,7 +70,7 @@ https://user-images.githubusercontent.com/51960141/232391022-42eb0ef7-75e2-4cd0-
 
 ## データベースクライアントツール
 
-pgAdmin を使用してテーブルを見ることができます。
+pgAdminを使用してテーブルを見ることができます。
 
 ### アクセス方法
 
@@ -88,7 +82,7 @@ http://localhost
 
 ### データベース登録
 
-Create Server から下記内容を設定する
+Create Serverから下記内容を設定する
 | タブ | 設定項目 | 設定値 |
 | ---------- | -------------------- | -------- |
 | General | Name | postgres |

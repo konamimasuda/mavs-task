@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   mavs-task:
@@ -8,12 +8,18 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
+      - 24678:24678
     volumes:
       - ./frontend:/usr/src/frontend
       - mavs-task-front-molules:/usr/src/frontend/node_modules
-    command: yarn dev
+    tty: true
+    environment:
+      - HOST=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true
     env_file:
       - ./frontend/.env
+    depends_on:
+      - mavs-task-api
   mavs-task-api:
     container_name: mavs-task-api
     build:
@@ -34,7 +40,7 @@ services:
       POSTGRES_PASSWORD: root
       PGPASSWORD: root123
       POSTGRES_DB: mavs-task-db
-      TZ: "Asia/Tokyo"
+      TZ: 'Asia/Tokyo'
     ports:
       - 5432:5432
     volumes:
