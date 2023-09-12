@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
-    <AppHeader class="layout__header" />
-    <Nuxt class="layout__main" />
+    <AppHeader />
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
 
