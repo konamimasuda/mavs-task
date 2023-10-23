@@ -1,7 +1,7 @@
 {
-  "name": "nicotama-pay-backend",
+  "name": "mavs-task-backend",
   "version": "1.0.0",
-  "description": "nicotama-pay-backend",
+  "description": "mavs-task-backend",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
