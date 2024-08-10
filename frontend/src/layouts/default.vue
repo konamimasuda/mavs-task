@@ -1,6 +1,8 @@
 <template>
   <div class="layout">
-    <AppHeader />
+    <AppHeader>
+      <MemoMenu />
+    </AppHeader>
     <main>
       <slot />
     </main>
