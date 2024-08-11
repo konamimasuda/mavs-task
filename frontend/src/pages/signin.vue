@@ -109,7 +109,7 @@ useHead({
       <p class="error">{{ passwordErrorMessage }}</p>
       <button type="submit" :disabled="isSubmitting">ログイン</button>
     </form>
-    <NuxtLink to="/">ユーザー登録はこちら</NuxtLink>
+    <NuxtLink to="/signup">ユーザー登録はこちら</NuxtLink>
   </div>
 </template>
 
