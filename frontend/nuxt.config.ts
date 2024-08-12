@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '~/assets/style/_base.scss',
     '~/assets/style/component/_header.scss',
     '~/assets/style/component/_form.scss',
+    '~/assets/style/component/_menu.scss',
   ],
 
   vite: {

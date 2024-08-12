@@ -6,23 +6,66 @@ const userStore = useUserStore();
 </script>
 
 <template>
-  <div v-if="userStore.isLoggedIn">
-    <NuxtLink to="/create">新しくメモを作成する</NuxtLink>
-    <p>メモ一覧</p>
-    <ul>
-      <li>
-        <NuxtLink to="/detail">メモのタイトル</NuxtLink>
+  <div v-if="userStore.isLoggedIn" class="menu">
+    <p class="menu__create">
+      <NuxtLink to="/create">新しくメモを作成する</NuxtLink>
+    </p>
+    <p class="menu__ttl">メモ一覧</p>
+    <!-- TODO:メモが16件以上ある場合に省略する実装は後ほど -->
+    <ul class="menu__ul">
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link"
+          >メモのタイトルが長い時は省略して表示する</NuxtLink
+        >
       </li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
-      <li>メモのタイトル</li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
+      <li class="menu__li">
+        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
+      </li>
     </ul>
-    <button type="button" @click="userStore.logout()">ログアウト</button>
+    <button class="menu__logout" type="button" @click="userStore.logout()">
+      ログアウト
+    </button>
   </div>
 </template>

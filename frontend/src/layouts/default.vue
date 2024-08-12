@@ -16,22 +16,34 @@ if (!userStore.isLoggedIn) {
 
 <template>
   <div>
-    <AppHeader class="header">
+    <AppHeader
+      class="app__header"
+      :class="{ app__border: userStore.isLoggedIn }"
+    >
       <MemoMenu />
     </AppHeader>
-    <main>
+    <main :class="{ app__main: userStore.isLoggedIn }">
       <slot />
     </main>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 16%;
-  height: 100vh;
+.app {
+  &__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 17vw;
+    height: 100vh;
+    background-color: $colorWhite;
+  }
+  &__border {
+    border-right: 1px solid $colorBlueOpacity;
+  }
+  &__main {
+    padding-left: 17vw;
+  }
 }
 </style>
