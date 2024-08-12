@@ -38,5 +38,8 @@ const closeDeleteConfirmationModal = () => {
       :visible="showModal"
       @cancel="closeDeleteConfirmationModal"
     />
+
+    <SnackbarSuccess />
+    <SnackbarFailure />
   </div>
 </template>

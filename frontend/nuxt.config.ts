@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '~/assets/style/component/_menu.scss',
     '~/assets/style/component/_memo.scss',
     '~/assets/style/component/_modal.scss',
+    '~/assets/style/component/_snackbar.scss',
   ],
 
   vite: {
