@@ -85,20 +85,22 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <h2>ログイン</h2>
-    <form @submit="onSubmit">
-      <label for="email">メールアドレス</label>
+  <div class="form">
+    <h2 class="form__ttl">ログイン</h2>
+    <form class="form__table" @submit="onSubmit">
+      <label for="email" class="form__label">メールアドレス</label>
       <input
+        class="form__input"
         v-model="email"
         name="email"
         type="email"
         id="email"
         placeholder="mail@example.com"
       />
-      <p class="error">{{ emailErrorMessage }}</p>
-      <label for="password">パスワード</label>
+      <p class="form__error">{{ emailErrorMessage }}</p>
+      <label for="password" class="form__label">パスワード</label>
       <input
+        class="form__input"
         v-model="password"
         name="password"
         type="password"
@@ -106,22 +108,13 @@ useHead({
         autocomplete="on"
         placeholder="password"
       />
-      <p class="error">{{ passwordErrorMessage }}</p>
-      <button type="submit" :disabled="isSubmitting">ログイン</button>
+      <p class="form__error">{{ passwordErrorMessage }}</p>
+      <button class="form__btn" type="submit" :disabled="isSubmitting">
+        ログイン
+      </button>
+      <p>
+        <NuxtLink to="/signup">ユーザー登録はこちら</NuxtLink>
+      </p>
     </form>
-    <NuxtLink to="/signup">ユーザー登録はこちら</NuxtLink>
   </div>
 </template>
-
-<style lang="scss" scoped>
-h2 {
-  font-size: 1.8rem;
-  @media #{$pc} {
-    font-size: 2.4rem;
-  }
-}
-.error {
-  /* ~/assets/style/_variables.scssで定義した変数を使うことができます */
-  color: $colorRed;
-}
-</style>

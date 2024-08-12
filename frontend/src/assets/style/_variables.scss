@@ -8,5 +8,25 @@ $sp: 'not all and (min-width: 768px) ';
 
 // 使用するカラー
 $colorWhite: #fff;
-$colorBlack: #333;
-$colorRed: #ff0000;
+$colorBlue: #061DB5;
+$colorBlueOpacity: rgba(6,29,181,0.5);
+$colorRed: #E64561;
+$colorGreen: #0AD796;
+
+// フォント設定
+// regular/400
+@font-face {
+    font-family: 'Zen Kaku Gothic New';
+    src: url(/fonts/ZenKakuGothicNew-Regular.ttf) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+// bold/700
+@font-face {
+    font-family: 'Zen Kaku Gothic New';
+    src: url(/fonts/ZenKakuGothicNew-Bold.ttf) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+// フォントの変数
+$font: 'Zen Kaku Gothic New',sans-serif;

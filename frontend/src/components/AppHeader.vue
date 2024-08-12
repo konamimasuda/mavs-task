@@ -6,8 +6,8 @@ const userStore = useUserStore();
 
 <template>
   <!-- アプリケーションの共通ヘッダー -->
-  <header class="">
-    <h1>
+  <header class="header">
+    <h1 class="header__ttl">
       <NuxtLink to="/">memo app</NuxtLink>
     </h1>
     <slot />

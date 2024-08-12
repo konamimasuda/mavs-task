@@ -3,9 +3,9 @@
     <style>
       .a, .b {
         fill: none;
-        stroke: #000;
+        stroke: #fff;
         stroke-linecap: round;
-        stroke-width: 2px;
+        stroke-width:3px;
       }
 
       .a {
