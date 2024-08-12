@@ -16,7 +16,7 @@ if (!userStore.isLoggedIn) {
 
 <template>
   <div>
-    <AppHeader>
+    <AppHeader class="header">
       <MemoMenu />
     </AppHeader>
     <main>
@@ -24,3 +24,14 @@ if (!userStore.isLoggedIn) {
     </main>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 16%;
+  height: 100vh;
+}
+</style>
