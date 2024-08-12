@@ -8,7 +8,7 @@ const userStore = useUserStore();
 <template>
   <div v-if="userStore.isLoggedIn" class="menu">
     <p class="menu__create">
-      <NuxtLink to="/create">新しくメモを作成する</NuxtLink>
+      <NuxtLink to="/">新しくメモを作成する</NuxtLink>
     </p>
     <p class="menu__ttl">メモ一覧</p>
     <!-- TODO:メモが16件以上ある場合に省略する実装は後ほど -->
