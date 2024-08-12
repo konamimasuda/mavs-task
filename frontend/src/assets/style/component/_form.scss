@@ -1,0 +1,67 @@
+/**
+ * 入力フォームのスタイル設定
+ */
+
+.form {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__ttl {
+        margin-bottom: 24px;
+        font-size: 1.25rem;
+    }
+
+    &__table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3.75vw;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+    }
+
+    &__label {
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+
+    &__input {
+        width: 15.3vw;
+        height: 40px;
+        margin-bottom: 8px;
+        padding: 8px 10px;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        &::placeholder {
+            color: $colorBlueOpacity;
+        }
+    }
+
+    &__error {
+        height: 14px;
+        margin-bottom: 32px;
+        color: $colorRed;
+        font-size: .825rem;
+        font-weight: 700;
+        visibility: hidden;
+        &:not(:empty) {
+            visibility: visible;
+        }
+    }
+
+    &__btn {
+        width: 15.3vw;
+        height: 40px;
+        margin-bottom: 32px;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        background-color: $colorBlue;
+        color: $colorWhite;
+        font-family: $font;
+        font-weight: 700;
+    }
+}

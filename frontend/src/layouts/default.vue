@@ -15,7 +15,7 @@ if (!userStore.isLoggedIn) {
 </script>
 
 <template>
-  <div class="layout">
+  <div>
     <AppHeader>
       <MemoMenu />
     </AppHeader>
