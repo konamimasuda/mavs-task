@@ -1,0 +1,56 @@
+/**
+ * 削除確認モーダルのスタイル設定
+ */
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__content {
+        padding: 102px 64px;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        background-color: $colorWhite;
+        text-align: center;
+    }
+
+    &__message {
+        margin-bottom: 56px;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    &__btnbox {
+        display: flex;
+        gap: 32px;
+    }
+
+    &__cancel {
+        width: 12.5vw;
+        height: 40px;
+        background-color: $colorBlue;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        color: $colorWhite;
+        font-weight: 700;
+    }
+
+    &__delete {
+        width: 12.5vw;
+        height: 40px;
+        background-color: $colorWhite;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        color: $colorBlue;
+        font-weight: 700;
+    }
+
+}

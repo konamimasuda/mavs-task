@@ -32,6 +32,11 @@
         }
     }
 
+    &__btnbox {
+        display: flex;
+        gap: 48px;
+    }
+
     &__btn {
         width: 100%;
         height: 40px;
@@ -42,5 +47,18 @@
         font-family: $font;
         font-weight: 700;
         letter-spacing: .1rem;
+    }
+
+    &__delete {
+        width: 100%;
+        height: 40px;
+        border: 1px solid $colorBlue;
+        border-radius: 4px;
+        background-color: $colorWhite;
+        color: $colorBlue;
+        font-family: $font;
+        font-weight: 700;
+        letter-spacing: .1rem;
+
     }
 }

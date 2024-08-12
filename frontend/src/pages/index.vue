@@ -1,7 +1,7 @@
 <!-- メモの新規作成画面 -->
 <template>
   <div class="memo">
-    <form action="post" class="memo__form">
+    <form class="memo__form" action="post">
       <input class="memo__input" type="text" name="title" placeholder="無題" />
       <textarea
         class="memo__textarea"

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '~/assets/style/component/_form.scss',
     '~/assets/style/component/_menu.scss',
     '~/assets/style/component/_memo.scss',
+    '~/assets/style/component/_modal.scss',
   ],
 
   vite: {
