@@ -50,14 +50,17 @@
         letter-spacing: .1rem;
     }
 
-    &__error {
+    &__errorbox {
+        display: flex;
         height: 14px;
-        margin-bottom: 32px;
+        gap: 32px;
         color: $colorRed;
         font-size: .825rem;
         font-weight: 700;
         visibility: hidden;
+    }
 
+    &__error {
         &:not(:empty) {
             visibility: visible;
         }

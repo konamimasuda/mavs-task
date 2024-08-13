@@ -1,6 +1,6 @@
 <!-- メモの新規作成画面 -->
 <script setup lang="ts">
-import { defineRule, useField, useForm } from "vee-validate";
+import { useField, useForm } from "vee-validate";
 import { useUserStore } from "~/store/user";
 import { CreateArticleResponse } from "~/types/api";
 
@@ -9,28 +9,29 @@ const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
 // ユーザーストアを取得
 const userStore = useUserStore();
-// 転送処理を行うためのフック
-const $router = useRouter();
 
-// タイトルまたはコンテンツのどちらかが入力されているかを確認するカスタムバリデーションを作成
-defineRule("atLeastOneRequired", (_value, _, ctx) => {
-  // フォーム全体の値にアクセスして、titleかcontentのいずれかが入力されているかを確認する
-  const { title, content } = ctx.form;
-
-  // どちらかが入力されていればOK
-  if (title || content) {
-    return true;
-  }
-  // 両方空の場合に下記のエラーメッセージを表示する
-  return "タイトルまたはコンテンツのどちらかを入力してください";
-});
+// スナックバーの表示状態を管理するための変数
+const showSuccessSnackbar = ref(false);
+const showFailureSnackbar = ref(false);
+const snackbarMessage = ref("");
 
 // フォームの設定
-const { handleSubmit, isSubmitting } = useForm({
+const { handleSubmit, isSubmitting, resetForm, errors } = useForm({
   // バリデーションルール
   validationSchema: {
-    title: "atLeastOneRequired",
-    content: "atLeastOneRequired",
+    title(value: string) {
+      // 必須
+      if (!value) {
+        return "タイトルを入力してください";
+      }
+      return true;
+    },
+    content(value: string) {
+      if (!value) {
+        return "本文を入力してください";
+      }
+      return true;
+    },
   },
 });
 
@@ -67,8 +68,25 @@ const onSubmit = handleSubmit(async () => {
     // レスポンスのデータを取得（ref値）
     const response = data.value;
     console.log("FEのレスポンスデータ", response);
+
+    // 保存に成功したら、入力フォームをクリアして成功のsnackbarを表示する
+    resetForm();
+    showSuccessSnackbar.value = true;
+    snackbarMessage.value = "保存に成功しました";
+
+    setTimeout(() => {
+      showSuccessSnackbar.value = false;
+    }, 3000);
   } catch (error) {
     console.log(error);
+
+    // 保存に失敗した場合、失敗のsnackbarを表示する
+    showFailureSnackbar.value = true;
+    snackbarMessage.value = "保存に失敗しました";
+
+    setTimeout(() => {
+      showFailureSnackbar.value = false;
+    }, 3000);
   }
 });
 
@@ -99,7 +117,20 @@ useHead({
       <button class="memo__btn" type="submit" :disabled="isSubmitting">
         メモを保存する
       </button>
-      <p class="memo__error">{{ (titleErrorMessage, contentErrorMessage) }}</p>
+      <div class="memo__errorbox">
+        <p v-if="errors.title" class="memo__error">{{ errors.title }}</p>
+        <p v-if="errors.content" class="memo__error">{{ errors.content }}</p>
+      </div>
     </form>
+    <SnackbarSuccess
+      v-if="showSuccessSnackbar"
+      :message="snackbarMessage"
+      @close="showSuccessSnackbar = false"
+    />
+    <SnackbarFailure
+      v-if="showFailureSnackbar"
+      :message="snackbarMessage"
+      @close="showFailureSnackbar = false"
+    />
   </div>
 </template>
