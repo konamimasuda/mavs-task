@@ -1,4 +1,3 @@
-// import db  from "../../models";
 import db from "../../models/index.js";
 
 
@@ -11,7 +10,7 @@ class ArticleService {
    * @param author_id
    * @return {Object}
    */
-async createArticle(title, content, author_id) {
+  async createArticle(title, content, author_id) {
     const newArticle =  await db.Articles.create({
       title,
       content,
@@ -25,11 +24,18 @@ async createArticle(title, content, author_id) {
   /**
    * 記事一覧取得
    * @param user_id
-   * @return ランダム値
+   * @return {Array}
    */
-  getArticleList(user_id) {
-    return [{}];
+  async getArticleList(user_id) {
+    const articleList = await db.Articles.findAll({
+      where: {
+        author_id: user_id,
+      },
+      order: [['created_at', 'DESC']]
+    });
+    return articleList;
   }
+
   /**
    * 記事情報取得
    * @param user_id

@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import config from '../config/jwt-config.js';
 import AuthService from '../services/auth/AuthService.js';
 
@@ -11,6 +11,9 @@ const authenticate = function authenticate(req, res, next) {
   try {
     const token = req.headers.authorization;
     const decoded = authService.checkToken(token);
+    req.user = {
+      id: decoded.id, email: decode.email
+    }
     req.jwtPayload = decoded;
     next();
   } catch (err) {

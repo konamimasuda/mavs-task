@@ -40,14 +40,14 @@ router.post('/updateArticle', authenticate, async (req, res, next) => {
 // メモ一覧取得
 router.get('/getArticleList', authenticate, async (req, res, next) => {
   try {
-    // let body = {};
+    const user_id = 1; // 後ほど修正する
     // サービス層からメモ一覧を取得する
-    const articles = await ArticleService.getArticleList();
+    const articles = await articleService.getArticleList(user_id);
 
     // メモ一覧データをレスポンスとして返す
-    res.status(200).json(articles);
+    res.status(200).json({ articles });
   } catch (error) {
-    console.error(error);
+    console.log(error.message);
     res.status(500).json({});
   }
 });
