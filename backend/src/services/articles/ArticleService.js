@@ -11,7 +11,7 @@ class ArticleService {
    * @return {Object}
    */
   async createArticle(title, content, author_id) {
-    const newArticle =  await db.Articles.create({
+    const newArticle = await db.Articles.create({
       title,
       content,
       author_id,
@@ -38,11 +38,24 @@ class ArticleService {
 
   /**
    * 記事情報取得
-   * @param user_id
-   * @return ランダム値
+   * @param article_id
+   * @return {Object}
    */
-  getArticle(user_id, article_id) {
-    return {};
+  async getArticle(article_id) {
+    try {
+      const article = await db.Articles.findOne({
+        where: {
+          id: article_id
+        }
+      });
+      if (!article) {
+        throw new Error('メモが見つかりません')
+      }
+      return article;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
 

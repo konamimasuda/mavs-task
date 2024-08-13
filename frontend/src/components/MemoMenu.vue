@@ -22,7 +22,6 @@ const fetchArticles = async () => {
         },
       }
     );
-
     articles.value = data.value?.articles || [];
   } catch (error) {
     console.log(error);
@@ -45,7 +44,7 @@ onMounted(() => {
     <!-- TODO:メモが16件以上ある場合に省略する実装は後ほど -->
     <ul class="menu__ul">
       <li class="menu__li" v-for="article in articles" :key="article.id">
-        <NuxtLink :to="`/${article.id}`" class="menu__link">{{
+        <NuxtLink :to="`/articles/${article.id}`" class="menu__link">{{
           article.title
         }}</NuxtLink>
       </li>

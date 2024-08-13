@@ -54,13 +54,16 @@ router.get('/getArticleList', authenticate, async (req, res, next) => {
 
 // 指定したメモの詳細を取得
 router.get('/getArticle', authenticate, async (req, res, next) => {
+
+  const { id } = req.params;
   try {
     // let body = {};
     // サービス層からメモを取得する
-    const article = await ArticleService.getArticle();
+    const article = await articleService.getArticle(id);
 
     // メモ詳細データをレスポンスとして返す
-    res.status(200).json(article);
+    res.json({ article });
+    // res.status(200).json(article);
   } catch (error) {
     console.error(error);
     res.status(500).json({});
