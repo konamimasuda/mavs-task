@@ -22,6 +22,29 @@ class ArticleService {
   }
 
   /**
+   * メモ更新保存
+   * @param title
+   * @param content
+   * @param author_id
+   * @param updated_at
+   * @return {Object}
+   */
+  async updateArticle(article_id, title, content, author_id, updated_at) {
+    const updateArticle = await db.Articles.update({
+      title,
+      content,
+      updated_at,
+    },
+      {
+        where: {
+          id: article_id
+        }
+      }
+    );
+    return updateArticle;
+  }
+
+  /**
    * 記事一覧取得
    * @param user_id
    * @return {Array}
@@ -52,6 +75,28 @@ class ArticleService {
         throw new Error('メモが見つかりません')
       }
       return article;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  /**
+   * メモ削除
+   * @param article_id
+   * @return {Object}
+   */
+  async deleteArticle(article_id) {
+    try {
+      const deleteResult = await db.Articles.destroy({
+        where: {
+          id: article_id
+        }
+      });
+      if (deleteResult === 0) {
+        throw new Error('メモが見つかりません')
+      }
+      return {success: true};
     } catch (error) {
       console.error(error);
       throw error;
