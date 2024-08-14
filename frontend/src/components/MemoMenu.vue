@@ -12,7 +12,7 @@ const articles = ref<Articles[]>([]);
 
 const fetchArticles = async () => {
   try {
-    const { data, error } = await useFetch<GetArticleListResponse>(
+    const { data } = await useFetch<GetArticleListResponse>(
       `${apiBaseUrl}/articles/getArticleList`,
       {
         method: "GET",
@@ -28,6 +28,17 @@ const fetchArticles = async () => {
   }
 };
 
+// ログイン状態の変化をウォッチし、一覧を取得する
+watch(
+  () => userStore.isLoggedIn,
+  (newValue) => {
+    if (newValue) {
+      fetchArticles();
+    }
+  }
+);
+
+// ログイン状態だったら一覧を表示する
 onMounted(() => {
   if (userStore.isLoggedIn) {
     fetchArticles();
@@ -48,13 +59,6 @@ onMounted(() => {
           article.title
         }}</NuxtLink>
       </li>
-
-      <!-- <li class="menu__li">
-        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
-      </li>
-      <li class="menu__li">
-        <NuxtLink to="/detail" class="menu__link">メモのタイトル</NuxtLink>
-      </li> -->
     </ul>
     <button class="menu__logout" type="button" @click="userStore.logout()">
       ログアウト
