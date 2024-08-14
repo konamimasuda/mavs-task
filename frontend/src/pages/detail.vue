@@ -29,6 +29,9 @@ const openDeleteConfirmationModal = () => {
 const closeDeleteConfirmationModal = () => {
   showModal.value = false;
 };
+const deletionSuccess = () => {
+  closeDeleteConfirmationModal();
+};
 
 // スナックバーの表示状態を管理するための変数
 const showSuccessSnackbar = ref(false);
@@ -205,6 +208,7 @@ useHead({
     <DeleteConfirmationModal
       :visible="showModal"
       @cancel="closeDeleteConfirmationModal"
+      @deleted="deletionSuccess"
     />
     <SnackbarSuccess
       v-if="showSuccessSnackbar"
