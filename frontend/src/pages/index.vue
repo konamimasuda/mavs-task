@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { useField, useForm } from "vee-validate";
 import { useUserStore } from "~/store/user";
-import { Articles, CreateArticleResponse } from "~/types/api";
+import { CreateArticleResponse } from "~/types/api";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();
@@ -67,8 +67,6 @@ const onSubmit = handleSubmit(async () => {
 
     // レスポンスのデータを取得（ref値）
     const response = data.value;
-    console.log("FEのレスポンスデータ", response);
-
     // 保存に成功したら、入力フォームをクリアして成功のsnackbarを表示する
     resetForm();
     showSuccessSnackbar.value = true;

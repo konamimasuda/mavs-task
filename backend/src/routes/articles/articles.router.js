@@ -29,10 +29,11 @@ router.post('/createArticle', authenticate, async (req, res, next) => {
 // メモ編集保存
 router.post('/updateArticle', authenticate, async (req, res, next) => {
   try {
-    let body = {};
-    res.status(200).json(body);
+    // let body = {};
+    // res.status(200).json(body);
+    res.status(200).json('モックOK！');
   } catch (error) {
-    console.error(error);
+    console.error('モックエラーです', error.message);
     res.status(500).json({});
   }
 });
