@@ -80,6 +80,28 @@ class ArticleService {
       throw error;
     }
   }
+
+  /**
+   * メモ削除
+   * @param article_id
+   * @return {Object}
+   */
+  async deleteArticle(article_id) {
+    try {
+      const deleteResult = await db.Articles.destroy({
+        where: {
+          id: article_id
+        }
+      });
+      if (deleteResult === 0) {
+        throw new Error('メモが見つかりません')
+      }
+      return {success: true};
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export default ArticleService;

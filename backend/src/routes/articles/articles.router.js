@@ -76,14 +76,14 @@ router.get('/getArticle', authenticate, async (req, res, next) => {
 // 指定したメモの削除
 router.delete('/deleteArticle', authenticate, async (req, res, next) => {
   try {
-    // let body = {};
-    // サービス層からメモを取得する
-    // const article = await ArticleService.getArticle();
+    // 削除したいメモのIDを受け取る
+    const { article_id } = req.query;
+    const deleteArticle = await articleService.deleteArticle(article_id);
 
-    // 削除成功/失敗の結果のみをレスポンスとして返す
-    res.status(200).json();
+    // 削除成功/失敗の結果をレスポンスとして返す
+    res.status(200).json(deleteArticle);
   } catch (error) {
-    console.error(error);
+    console.error('削除モックエラー', error.message);
     res.status(500).json({});
   }
 });
