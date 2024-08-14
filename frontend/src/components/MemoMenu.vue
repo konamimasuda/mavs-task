@@ -1,7 +1,11 @@
 <!-- メモの一覧を表示するコンポーネント -->
 <script setup lang="ts">
 import { useUserStore } from "~/store/user";
-import { Articles, GetArticleListResponse } from "~/types/api";
+import {
+  Articles,
+  GetArticleListResponse,
+  GetArticleResponse,
+} from "~/types/api";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();
@@ -44,6 +48,30 @@ onMounted(() => {
     fetchArticles();
   }
 });
+
+// ここから追加
+
+const onSubmit = async () => {
+  try {
+    const { data } = await useFetch<GetArticleResponse>(
+      `${apiBaseUrl}/articles/getArticle`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userStore.token,
+        },
+        body: {
+          // article_id: data.value.id
+        },
+      }
+    );
+    const response = data.value;
+    console.log("APIのレスポンス", response);
+  } catch (error) {
+    console.log("フロントのエラー", error);
+  }
+};
 </script>
 
 <template>
@@ -55,9 +83,9 @@ onMounted(() => {
     <!-- TODO:メモが16件以上ある場合に省略する実装は後ほど -->
     <ul class="menu__ul">
       <li class="menu__li" v-for="article in articles" :key="article.id">
-        <NuxtLink :to="`/articles/${article.id}`" class="menu__link">{{
-          article.title
-        }}</NuxtLink>
+        <NuxtLink class="menu__link" @click="onSubmit">
+          {{ article.title }}
+        </NuxtLink>
       </li>
     </ul>
     <button class="menu__logout" type="button" @click="userStore.logout()">

@@ -5,9 +5,9 @@ import { useRoute, useRouter } from "vue-router";
 import { useUserStore } from "~/store/user";
 import { UpdateArticleResponse, GetArticleResponse } from "~/types/api";
 import { useFetch } from "#app";
-import DeleteConfirmationModal from "~/components/DeleteConfirmationModal.vue"; // モーダルコンポーネント
-import SnackbarSuccess from "~/components/SnackbarSuccess.vue"; // 成功スナックバー
-import SnackbarFailure from "~/components/SnackbarFailure.vue"; // 失敗スナックバー
+import DeleteConfirmationModal from "~/components/DeleteConfirmationModal.vue";
+import SnackbarSuccess from "~/components/SnackbarSuccess.vue";
+import SnackbarFailure from "~/components/SnackbarFailure.vue";
 
 // モーダルの表示状態を管理する
 const showModal = ref(false);
