@@ -83,7 +83,7 @@ router.delete('/deleteArticle', authenticate, async (req, res, next) => {
     // 削除成功/失敗の結果をレスポンスとして返す
     res.status(200).json(deleteArticle);
   } catch (error) {
-    console.error('削除モックエラー', error.message);
+    console.error(error);
     res.status(500).json({});
   }
 });
