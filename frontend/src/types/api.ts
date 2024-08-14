@@ -32,6 +32,7 @@ export interface GetArticleListResponse {
 }
 
 export interface GetArticleResponse {
+  article: any
   token: string
   user_id: number
   article_id: number

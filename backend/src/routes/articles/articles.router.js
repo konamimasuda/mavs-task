@@ -55,17 +55,15 @@ router.get('/getArticleList', authenticate, async (req, res, next) => {
 // 指定したメモの詳細を取得
 router.get('/getArticle', authenticate, async (req, res, next) => {
 
-  // const { id } = req.params;
+  // クエリからメモのIDを取り出す
+  const { article_id } = req.query;
   try {
-    // サービス層からメモを取得する
-    // const article = await articleService.getArticle(id);
-
+    // サービス層からメモの詳細情報を取得する
+    const article = await articleService.getArticle(article_id);
     // メモ詳細データをレスポンスとして返す
-    // res.json({ article });
-    // res.status(200).json({ article });
-    res.status(200).json('モックOK！');
+    res.status(200).json({article});
   } catch (error) {
-    console.error('モックエラーです', error);
+    console.error(error);
     res.status(500).json({});
   }
 });

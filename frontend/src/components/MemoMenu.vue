@@ -49,9 +49,8 @@ onMounted(() => {
   }
 });
 
-// ここから追加
-
-const onSubmit = async () => {
+// メモのタイトル押下で、そのメモのIDをクエリパラメータで送る
+const onSubmit = async (articleId: number) => {
   try {
     const { data } = await useFetch<GetArticleResponse>(
       `${apiBaseUrl}/articles/getArticle`,
@@ -61,15 +60,15 @@ const onSubmit = async () => {
           "Content-Type": "application/json",
           Authorization: userStore.token,
         },
-        body: {
-          // article_id: data.value.id
+        query: {
+          article_id: articleId,
         },
       }
     );
+
     const response = data.value;
-    console.log("APIのレスポンス", response);
   } catch (error) {
-    console.log("フロントのエラー", error);
+    console.log(error);
   }
 };
 </script>
@@ -83,7 +82,11 @@ const onSubmit = async () => {
     <!-- TODO:メモが16件以上ある場合に省略する実装は後ほど -->
     <ul class="menu__ul">
       <li class="menu__li" v-for="article in articles" :key="article.id">
-        <NuxtLink class="menu__link" @click="onSubmit">
+        <NuxtLink
+          :to="`/detail?id=${article.id}`"
+          class="menu__link"
+          @click="onSubmit(article.id)"
+        >
           {{ article.title }}
         </NuxtLink>
       </li>
