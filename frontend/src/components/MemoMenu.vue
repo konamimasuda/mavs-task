@@ -91,8 +91,5 @@ const onSubmit = async (articleId: number) => {
         </NuxtLink>
       </li>
     </ul>
-    <button class="menu__logout" type="button" @click="userStore.logout()">
-      ログアウト
-    </button>
   </div>
 </template>

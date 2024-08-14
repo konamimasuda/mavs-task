@@ -28,14 +28,4 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
-    &__logout {
-        padding: 8px 0;
-        background-color: $colorWhite;
-        border: none;
-        color: $colorBlue;
-        font-family: $font;
-        font-size: 1rem;
-        font-weight: 700;
-    }
 }
