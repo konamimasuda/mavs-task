@@ -81,9 +81,9 @@ router.delete('/deleteArticle', authenticate, async (req, res, next) => {
     // const article = await ArticleService.getArticle();
 
     // 削除成功/失敗の結果のみをレスポンスとして返す
-    res.status(200).json();
+    res.status(200).json('削除モックOK!');
   } catch (error) {
-    console.error(error);
+    console.error('削除モックエラー', error.message);
     res.status(500).json({});
   }
 });
