@@ -29,11 +29,15 @@ router.post('/createArticle', authenticate, async (req, res, next) => {
 // メモ編集保存
 router.post('/updateArticle', authenticate, async (req, res, next) => {
   try {
-    // let body = {};
-    // res.status(200).json(body);
-    res.status(200).json('モックOK！');
+    // リクエストボディから受け取るデータ
+    const { article_id, title, content, updated_at } = req.body;
+    // メモの更新保存処理(サービス層)
+    const updateArticle = await articleService.updateArticle(article_id, title, content, updated_at);
+
+    // 更新されたメモをレスポンスとして返す
+    res.status(200).json(updateArticle);
   } catch (error) {
-    console.error('モックエラーです', error.message);
+    console.error(error);
     res.status(500).json({});
   }
 });

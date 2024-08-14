@@ -115,11 +115,7 @@ const { value: content, errorMessage: contentErrorMessage } = useField<string>(
     validateOnChange: true,
   }
 );
-const { value: author_id, errorMessage: author_idErrorMessage } =
-  useField<string>("author_id", {
-    validateOnMount: false,
-    validateOnChange: true,
-  });
+
 const onSubmit = handleSubmit(async () => {
   try {
     // メモ更新保存APIを呼び出す -> /backend/src/routes/articles/articles.router.tsを参照
@@ -129,20 +125,16 @@ const onSubmit = handleSubmit(async () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization: userStore.token,
+          Authorization: userStore.token,
         },
         body: {
-          // title: title.value,
-          // content: content.value,
-          // author_id: 1, //後ほど修正する
-          // updated_at: new Date(),
+          article_id: articleId,
+          title: title.value,
+          content: content.value,
+          updated_at: new Date(),
         },
       }
     );
-
-    // レスポンスのデータを取得（ref値）
-    const response = data.value;
-    console.log("FEのレスポンスデータ", response);
 
     // 保存に成功した場合、成功のsnackbarを表示する
     showSuccessSnackbar.value = true;
@@ -154,7 +146,7 @@ const onSubmit = handleSubmit(async () => {
   } catch (error) {
     console.log(error);
 
-    // // 保存に失敗した場合、失敗のsnackbarを表示する
+    // 保存に失敗した場合、失敗のsnackbarを表示する
     showFailureSnackbar.value = true;
     snackbarMessage.value = "保存に失敗しました";
 
