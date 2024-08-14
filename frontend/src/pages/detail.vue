@@ -13,14 +13,11 @@ import { useField, useForm } from "vee-validate";
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
-
 // ユーザーストアを取得
 const userStore = useUserStore();
-const route = useRoute();
-
 // メモのIDを取得
+const route = useRoute();
 let articleId = route.query.id;
-
 // モーダル関連
 const showModal = ref(false);
 const openDeleteConfirmationModal = () => {
@@ -32,7 +29,6 @@ const closeDeleteConfirmationModal = () => {
 const deletionSuccess = () => {
   closeDeleteConfirmationModal();
 };
-
 // スナックバーの表示状態を管理するための変数
 const showSuccessSnackbar = ref(false);
 const showFailureSnackbar = ref(false);
@@ -142,7 +138,7 @@ const onSubmit = handleSubmit(async () => {
     // 保存に成功した場合、成功のsnackbarを表示する
     showSuccessSnackbar.value = true;
     snackbarMessage.value = "保存に成功しました";
-
+    // 3秒後に自動でsnackbarの表示を削除する
     setTimeout(() => {
       showSuccessSnackbar.value = false;
     }, 3000);
@@ -152,7 +148,7 @@ const onSubmit = handleSubmit(async () => {
     // 保存に失敗した場合、失敗のsnackbarを表示する
     showFailureSnackbar.value = true;
     snackbarMessage.value = "保存に失敗しました";
-
+    // 3秒後に自動でsnackbarの表示を削除する
     setTimeout(() => {
       showFailureSnackbar.value = false;
     }, 3000);

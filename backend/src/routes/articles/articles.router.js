@@ -6,7 +6,7 @@ const router = express.Router();
 const articleService = new ArticleService();
 
 /**
- * メモ登録関連
+ * メモ関連
  */
 
 // メモ新規作成
