@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { useField, useForm } from "vee-validate";
 import { useUserStore } from "~/store/user";
-import { CreateArticleResponse } from "~/types/api";
+import { Articles, CreateArticleResponse } from "~/types/api";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();

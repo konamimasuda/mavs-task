@@ -1,64 +1,79 @@
 <!-- 保存済みメモの編集または削除画面 -->
 <script setup lang="ts">
-// モーダルの表示状態を管理する
-const showModal = ref(false);
-// モーダルを開く関数
-const openDeleteConfirmationModal = () => {
-  showModal.value = true;
-};
-// モーダルを閉じる関数
-const closeDeleteConfirmationModal = () => {
-  showModal.value = false;
-};
-
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { useUserStore } from "~/store/user";
-import {
-  CreateArticleResponse,
-  GetArticleListResponse,
-  GetArticleResponse,
-  UpdateArticleResponse,
-} from "~/types/api";
+import { UpdateArticleResponse, GetArticleResponse } from "~/types/api";
+import { useFetch } from "#app";
+import DeleteConfirmationModal from "~/components/DeleteConfirmationModal.vue";
+import SnackbarSuccess from "~/components/SnackbarSuccess.vue";
+import SnackbarFailure from "~/components/SnackbarFailure.vue";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
 // ユーザーストアを取得
 const userStore = useUserStore();
-// 転送処理を行うためのフック
-const $router = useRouter();
+const route = useRoute();
+// メモのIDを取得
+let articleId = route.query.id;
+const title = ref("");
+const content = ref("");
 
-// // フォームの設定
-// const { handleSubmit, isSubmitting } = useForm({
-//   // バリデーションルール
-//   validationSchema: {
-//     email(value: string) {
-//       // 必須
-//       if (!value) {
-//         return "メールアドレスを入力してください";
-//       }
-//       // メールアドレスの形式
-//       const emailPattern =
-//         /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-//       if (!emailPattern.test(value)) {
-//         return "メールアドレスの形式が正しくありません";
-//       }
-//       return true;
-//     },
-//     password(value: string) {
-//       if (!value) {
-//         return "パスワードを入力してください";
-//       }
-//       return true;
-//     },
-//   },
-// });
-// フィールドの値とエラーメッセージを取得
-// const { value: email, errorMessage: emailErrorMessage } = useField("email");
-// const { value: password, errorMessage: passwordErrorMessage } =
-//   useField("password");
+// モーダル関連
+const showModal = ref(false);
+const openDeleteConfirmationModal = () => {
+  showModal.value = true;
+};
+const closeDeleteConfirmationModal = () => {
+  showModal.value = false;
+};
 
 /**
- * メモの保存処理
+ * メモの詳細情報表示処理
+ */
+const fetchArticleDetail = async () => {
+  try {
+    const { data } = await useFetch<GetArticleResponse>(
+      `${apiBaseUrl}/articles/getArticle`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userStore.token,
+        },
+        query: {
+          article_id: articleId,
+        },
+      }
+    );
+
+    const response = data.value;
+    if (response) {
+      title.value = response.article.title;
+      content.value = response.article.content;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ページのマウント時にメモの詳細情報を取得
+onMounted(() => {
+  fetchArticleDetail();
+});
+
+// メモのIDの変化をウォッチし、IDに合わせた詳細を取得する
+watch(
+  () => route.query.id,
+  (newArticleId) => {
+    articleId = newArticleId;
+    fetchArticleDetail();
+  }
+);
+
+/**
+ * メモの更新保存処理
  */
 const onSubmit = async () => {
   try {
@@ -77,19 +92,6 @@ const onSubmit = async () => {
     // レスポンスのデータを取得（ref値）
     const response = data.value;
     console.log("編集登録保存を押下した時に出るconsole.log:", response);
-    // // トークンの有無でログインできたか判断
-    // const hasToken = response && !!response.token;
-    // if (hasToken) {
-    //   // 成功の場合はトークンを保存
-    //   userStore.token = response.token;
-    //   userStore.email = response.email;
-    //   // トップページに遷移
-    //   $router.push("/");
-    // } else {
-    //   // 失敗の場合はフィールドをクリア
-    //   email.value = "";
-    //   password.value = "";
-    // }
   } catch (error) {
     console.log(error);
   }
@@ -104,13 +106,21 @@ useHead({
 <template>
   <div>
     <form class="memo" action="">
-      <input class="memo__input" type="text" name="title" placeholder="無題" />
+      <input
+        v-model="title"
+        class="memo__input"
+        type="text"
+        name="title"
+        placeholder="無題"
+      />
       <textarea
+        v-model="content"
         class="memo__textarea"
-        name="contents"
-        id=""
+        name="content"
+        id="content"
         placeholder="文字を入力する"
-      ></textarea>
+      >
+      </textarea>
       <div class="memo__btnbox">
         <button class="memo__btn" type="button" @click="onSubmit">
           メモを保存する

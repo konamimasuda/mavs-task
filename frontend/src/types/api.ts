@@ -18,12 +18,21 @@ export interface UpdateArticleResponse {
   content: string
 }
 
+export interface Articles {
+  id: number
+  author_id: string
+  title: string
+  content: string
+  created_at: Date
+  updated_at: Date
+}
+
 export interface GetArticleListResponse {
-  token: string
-  user_id: number
+  articles: Articles[],
 }
 
 export interface GetArticleResponse {
+  article: any
   token: string
   user_id: number
   article_id: number

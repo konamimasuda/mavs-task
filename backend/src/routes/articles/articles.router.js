@@ -40,27 +40,28 @@ router.post('/updateArticle', authenticate, async (req, res, next) => {
 // メモ一覧取得
 router.get('/getArticleList', authenticate, async (req, res, next) => {
   try {
-    // let body = {};
+    const user_id = 1; // 後ほど修正する
     // サービス層からメモ一覧を取得する
-    const articles = await ArticleService.getArticleList();
+    const articles = await articleService.getArticleList(user_id);
 
     // メモ一覧データをレスポンスとして返す
-    res.status(200).json(articles);
+    res.status(200).json({ articles });
   } catch (error) {
-    console.error(error);
+    console.log(error.message);
     res.status(500).json({});
   }
 });
 
 // 指定したメモの詳細を取得
 router.get('/getArticle', authenticate, async (req, res, next) => {
-  try {
-    // let body = {};
-    // サービス層からメモを取得する
-    const article = await ArticleService.getArticle();
 
+  // クエリからメモのIDを取り出す
+  const { article_id } = req.query;
+  try {
+    // サービス層からメモの詳細情報を取得する
+    const article = await articleService.getArticle(article_id);
     // メモ詳細データをレスポンスとして返す
-    res.status(200).json(article);
+    res.status(200).json({article});
   } catch (error) {
     console.error(error);
     res.status(500).json({});
