@@ -8,7 +8,6 @@ export default defineNuxtConfig({
   css: [
     '~/assets/style/common.scss',
     '~/assets/style/_reset.scss',
-    '~/assets/style/_base.scss',
     '~/assets/style/component/_header.scss',
     '~/assets/style/component/_form.scss',
     '~/assets/style/component/_menu.scss',
@@ -23,7 +22,6 @@ export default defineNuxtConfig({
         scss: {
           additionalData: `
           @import "~/assets/style/_variables.scss";
-          @import "~/assets/style/_mixin.scss";
           `
         },
       },
