@@ -30,9 +30,17 @@ const openDeleteConfirmationModal = () => {
 const closeDeleteConfirmationModal = () => {
   showModal.value = false;
 };
-const deletionSuccess = () => {
+const deletionSuccess = async () => {
   closeDeleteConfirmationModal();
   articleStore.fetchArticles(apiBaseUrl, userStore.token);
+  if (route.query.id) {
+    articleId.value = Number(route.query.id);
+    await articleStore.fetchArticleDetail(
+      apiBaseUrl,
+      userStore.token,
+      articleId.value
+    );
+  }
 };
 // スナックバーの表示状態を管理するための変数
 const showSuccessSnackbar = ref(false);
@@ -58,18 +66,19 @@ onMounted(() => {
 // メモのIDの変化をウォッチし、IDに合わせた詳細を取得する
 watch(
   () => route.query.id,
-  (newId) => {
+  async (newId) => {
     const newArticleId = Number(newId) || null;
     articleId.value = newArticleId;
     if (newArticleId !== null) {
-      articleStore
-        .fetchArticleDetail(apiBaseUrl, userStore.token, articleId.value)
-        .then(() => {
-          if (articleStore.getSelectedArticle) {
-            title.value = articleStore.getSelectedArticle.article.title;
-            content.value = articleStore.getSelectedArticle.article.content;
-          }
-        });
+      await articleStore.fetchArticleDetail(
+        apiBaseUrl,
+        userStore.token,
+        articleId.value
+      );
+      if (articleStore.getSelectedArticle) {
+        title.value = articleStore.getSelectedArticle.article.title;
+        content.value = articleStore.getSelectedArticle.article.content;
+      }
     }
   }
 );
@@ -134,6 +143,8 @@ const onSubmit = handleSubmit(async () => {
       }
     );
 
+    // 保存に成功したら、メモ一覧をリフレッシュする
+    await articleStore.refreshArticles(apiBaseUrl, userStore.token);
     // 保存に成功した場合、成功のsnackbarを表示する
     showSuccessSnackbar.value = true;
     snackbarMessage.value = "保存に成功しました";

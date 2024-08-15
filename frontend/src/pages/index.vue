@@ -1,6 +1,7 @@
 <!-- メモの新規作成画面 -->
 <script setup lang="ts">
 import { useField, useForm } from "vee-validate";
+import { useArticleStore } from "~/store/article";
 import { useUserStore } from "~/store/user";
 import { CreateArticleResponse } from "~/types/api";
 
@@ -13,6 +14,8 @@ const userStore = useUserStore();
 const showSuccessSnackbar = ref(false);
 const showFailureSnackbar = ref(false);
 const snackbarMessage = ref("");
+
+const articleStore = useArticleStore();
 
 // フォームの設定
 const { handleSubmit, isSubmitting, resetForm, errors } = useForm({
@@ -60,6 +63,9 @@ const onSubmit = handleSubmit(async () => {
         },
       }
     );
+
+    // 保存後、メモ一覧表示に反映させる
+    await articleStore.fetchArticles(apiBaseUrl, userStore.token);
 
     // 保存に成功したら、入力フォームをクリアして成功のsnackbarを表示する
     resetForm();
