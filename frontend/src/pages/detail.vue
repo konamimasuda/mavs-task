@@ -144,7 +144,7 @@ const onSubmit = handleSubmit(async () => {
     );
 
     // 保存に成功したら、メモ一覧をリフレッシュする
-    await articleStore.refreshArticles(apiBaseUrl, userStore.token);
+    await articleStore.fetchArticles(apiBaseUrl, userStore.token);
     // 保存に成功した場合、成功のsnackbarを表示する
     showSuccessSnackbar.value = true;
     snackbarMessage.value = "保存に成功しました";
