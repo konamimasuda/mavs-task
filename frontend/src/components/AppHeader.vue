@@ -15,7 +15,7 @@ const handleLogout = () => {
   <!-- アプリケーションの共通ヘッダー -->
   <header class="header">
     <h1 class="header__ttl">memo app</h1>
-    <slot />
+    <slot class="header__content" />
     <button
       class="header__logout"
       type="button"

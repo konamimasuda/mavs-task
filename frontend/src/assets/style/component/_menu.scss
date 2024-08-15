@@ -3,6 +3,9 @@
  */
 
 .menu {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
     font-weight: 700;
 
     &__create {
@@ -15,7 +18,9 @@
     }
 
     &__ul {
-        margin-bottom: 40px;
+        height: 100%;
+        overflow-y: scroll;
+        scrollbar-color: transparent transparent;
     }
 
     &__li {
