@@ -2,14 +2,27 @@
 import { useUserStore } from "~/store/user";
 
 const userStore = useUserStore();
+const router = useRouter();
+
+// ログアウトボタン押下でログアウト処理をし、サインイン画面に遷移する
+const handleLogout = () => {
+  userStore.logout();
+  router.push("/signin");
+};
 </script>
 
 <template>
   <!-- アプリケーションの共通ヘッダー -->
   <header class="header">
-    <h1 class="header__ttl">
-      <NuxtLink to="/">memo app</NuxtLink>
-    </h1>
-    <slot />
+    <h1 class="header__ttl">memo app</h1>
+    <slot class="header__content" />
+    <button
+      class="header__logout"
+      type="button"
+      @click="handleLogout"
+      v-if="userStore.isLoggedIn"
+    >
+      ログアウト
+    </button>
   </header>
 </template>

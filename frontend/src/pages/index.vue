@@ -1,6 +1,7 @@
 <!-- メモの新規作成画面 -->
 <script setup lang="ts">
 import { useField, useForm } from "vee-validate";
+import { useArticleStore } from "~/store/article";
 import { useUserStore } from "~/store/user";
 import { CreateArticleResponse } from "~/types/api";
 
@@ -9,11 +10,12 @@ const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
 // ユーザーストアを取得
 const userStore = useUserStore();
-
-// スナックバーの表示状態を管理するための変数
+// スナックバー関連
 const showSuccessSnackbar = ref(false);
 const showFailureSnackbar = ref(false);
 const snackbarMessage = ref("");
+
+const articleStore = useArticleStore();
 
 // フォームの設定
 const { handleSubmit, isSubmitting, resetForm, errors } = useForm({
@@ -36,12 +38,9 @@ const { handleSubmit, isSubmitting, resetForm, errors } = useForm({
 });
 
 // フィールドの値とエラーメッセージを取得
-const { value: title, errorMessage: titleErrorMessage } =
-  useField<string>("title");
-const { value: content, errorMessage: contentErrorMessage } =
-  useField<string>("content");
-const { value: author_id, errorMessage: author_idErrorMessage } =
-  useField<string>("author_id");
+const { value: title } = useField<string>("title");
+const { value: content } = useField<string>("content");
+const { value: author_id } = useField<number>("author_id");
 
 /**
  * メモの保存処理
@@ -65,13 +64,14 @@ const onSubmit = handleSubmit(async () => {
       }
     );
 
-    // レスポンスのデータを取得（ref値）
-    const response = data.value;
+    // 保存後、メモ一覧表示に反映させる
+    await articleStore.fetchArticles(apiBaseUrl, userStore.token);
+
     // 保存に成功したら、入力フォームをクリアして成功のsnackbarを表示する
     resetForm();
     showSuccessSnackbar.value = true;
     snackbarMessage.value = "保存に成功しました";
-
+    // 3秒後に自動でsnackbarを削除する
     setTimeout(() => {
       showSuccessSnackbar.value = false;
     }, 3000);
@@ -81,7 +81,7 @@ const onSubmit = handleSubmit(async () => {
     // 保存に失敗した場合、失敗のsnackbarを表示する
     showFailureSnackbar.value = true;
     snackbarMessage.value = "保存に失敗しました";
-
+    // 3秒後に自動でsnackbarを削除する
     setTimeout(() => {
       showFailureSnackbar.value = false;
     }, 3000);

@@ -3,6 +3,9 @@
  */
 
 .menu {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
     font-weight: 700;
 
     &__create {
@@ -15,7 +18,9 @@
     }
 
     &__ul {
-        margin-bottom: 40px;
+        height: 100%;
+        overflow-y: scroll;
+        scrollbar-color: transparent transparent;
     }
 
     &__li {
@@ -27,15 +32,5 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    &__logout {
-        padding: 8px 0;
-        background-color: $colorWhite;
-        border: none;
-        color: $colorBlue;
-        font-family: $font;
-        font-size: 1rem;
-        font-weight: 700;
     }
 }
