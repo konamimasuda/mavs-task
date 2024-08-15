@@ -29,7 +29,7 @@ class ArticleService {
    * @param updated_at
    * @return {Object}
    */
-  async updateArticle(article_id, title, content, author_id, updated_at) {
+  async updateArticle(article_id, title, content, updated_at) {
     const updateArticle = await db.Articles.update({
       title,
       content,

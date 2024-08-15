@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 interface State {
   token: string
   email: string
-  // userId: number
 }
 
 export const useUserStore = defineStore('user', {
@@ -14,7 +13,6 @@ export const useUserStore = defineStore('user', {
     return {
       token: '',
       email: '',
-      // userId: 0,
     }
   },
 
@@ -31,7 +29,6 @@ export const useUserStore = defineStore('user', {
     login({ token, email }: State) {
       this.token = token
       this.email = email
-      // this.userId = userId
     },
   },
 
