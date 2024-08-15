@@ -9,15 +9,19 @@ import DeleteConfirmationModal from "~/components/DeleteConfirmationModal.vue";
 import SnackbarSuccess from "~/components/SnackbarSuccess.vue";
 import SnackbarFailure from "~/components/SnackbarFailure.vue";
 import { useField, useForm } from "vee-validate";
+import { useArticleStore } from "~/store/article";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
 const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
 // ユーザーストアを取得
 const userStore = useUserStore();
+// メモのストアを取得
+const articleStore = useArticleStore();
 // メモのIDを取得
 const route = useRoute();
-let articleId = route.query.id;
+let articleId = ref<number | null>(Number(route.query.id) || null);
+
 // モーダル関連
 const showModal = ref(false);
 const openDeleteConfirmationModal = () => {
@@ -28,6 +32,7 @@ const closeDeleteConfirmationModal = () => {
 };
 const deletionSuccess = () => {
   closeDeleteConfirmationModal();
+  articleStore.fetchArticles(apiBaseUrl, userStore.token);
 };
 // スナックバーの表示状態を管理するための変数
 const showSuccessSnackbar = ref(false);
@@ -37,41 +42,35 @@ const snackbarMessage = ref("");
 /**
  * メモの詳細情報表示処理
  */
-const fetchArticleDetail = async () => {
-  try {
-    const { data } = await useFetch<GetArticleResponse>(
-      `${apiBaseUrl}/articles/getArticle`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: userStore.token,
-        },
-        query: {
-          article_id: articleId,
-        },
-      }
-    );
-
-    const response = data.value;
-    if (response) {
-      title.value = response.article.title;
-      content.value = response.article.content;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
 // ページのマウント時にメモの詳細情報を取得
 onMounted(() => {
-  fetchArticleDetail();
+  if (articleId.value !== null) {
+    articleStore
+      .fetchArticleDetail(apiBaseUrl, userStore.token, articleId.value)
+      .then(() => {
+        if (articleStore.getSelectedArticle) {
+          title.value = articleStore.getSelectedArticle.article.title;
+          content.value = articleStore.getSelectedArticle.article.content;
+        }
+      });
+  }
 });
 // メモのIDの変化をウォッチし、IDに合わせた詳細を取得する
 watch(
   () => route.query.id,
-  (newArticleId) => {
-    articleId = newArticleId;
-    fetchArticleDetail();
+  (newId) => {
+    const newArticleId = Number(newId) || null;
+    articleId.value = newArticleId;
+    if (newArticleId !== null) {
+      articleStore
+        .fetchArticleDetail(apiBaseUrl, userStore.token, articleId.value)
+        .then(() => {
+          if (articleStore.getSelectedArticle) {
+            title.value = articleStore.getSelectedArticle.article.title;
+            content.value = articleStore.getSelectedArticle.article.content;
+          }
+        });
+    }
   }
 );
 
